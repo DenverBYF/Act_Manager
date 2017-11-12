@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', '网信院')
+@section('title', '分组编辑')
 
 @section('content_header')
     <h2>{{ $group->name }}</h2>

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', '网信院')
+@section('title', 'Home')
 
 @section('content_header')
-    <h1>网络与信息安全学院本科生党支部</h1>
+    <h1>ACT_Manager</h1>
 @stop
 
 @section('content')
@@ -13,8 +13,8 @@
                 <div class="info-box">
                     <span class="info-box-icon bg-red-gradient"><i class="fa fa-user"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">支部总人数</span>
-                        <span class="info-box-number">39</span>
+                        <span class="info-box-text">总人数</span>
+                        <span class="info-box-number">{{ $user }}</span>
                     </div>
                 </div>
             </div>
@@ -22,8 +22,8 @@
                 <div class="info-box">
                     <span class="info-box-icon bg-yellow-gradient"><i class="fa fa-user"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">正式党员</span>
-                        <span class="info-box-number">13</span>
+                        <span class="info-box-text">组别数</span>
+                        <span class="info-box-number">{{ $group }}</span>
                     </div>
                 </div>
             </div>
@@ -31,8 +31,8 @@
                 <div class="info-box">
                     <span class="info-box-icon bg-blue-gradient"><i class="fa fa-user"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">预备党员</span>
-                        <span class="info-box-number">26</span>
+                        <span class="info-box-text">活动数</span>
+                        <span class="info-box-number">{{ $act }}</span>
                     </div>
                 </div>
             </div>

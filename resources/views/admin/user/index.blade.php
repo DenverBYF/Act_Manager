@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
-@section('title', '网信院')
+@section('title', '人员名单')
 
 @section('content')
     <div class="container">
         <div class="col-md-8 col-sm-8">
-            <b>支部人员名单</b>
+            <b>人员名单</b>
         </div>
         <div class="col-md-4 col-sm-4">
             <button class="btn-info btn-lg" data-toggle="modal" data-target="#adduser">通过文件导入成员</button>

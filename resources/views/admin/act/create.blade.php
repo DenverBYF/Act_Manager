@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', '网信院')
+@section('title', '活动发布')
 
 @section('content_header')
     <h3>活动发布</h3>

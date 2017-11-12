@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>网信院本科生党支部</b>',
+    'logo' => '<b>活动管理平台</b>',
 
-    'logo_mini' => '<b>网信院</b>',
+    'logo_mini' => '<b>ACT_Manager</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
 
     'logout_url' => 'logout',
 

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', '网信院')
+@section('title', '会议记录')
 
 @section('content_header')
     <h2>{{ $act->name }}</h2>
