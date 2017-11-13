@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'logo' => '<b>活动管理平台</b>',
+    'logo' => '<b>'.env('group_name').'</b>',
 
     'logo_mini' => '<b>ACT_Manager</b>',
 
