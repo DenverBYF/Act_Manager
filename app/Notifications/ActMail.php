@@ -49,8 +49,8 @@ class ActMail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('网络与信息安全学院本科生党支部成员:')
-					->line('  你好,这里是本科生党支部委员会,现有如下一项活动/会议安排需要你的参加出席。')
+                    ->line(env('group_name').'成员:')
+					->line('  你好,这里是'.env('group_name').',现有如下一项活动/会议安排需要你的参加出席。')
                     ->line("	主题:{$this->act->name}")
 					->line("	时间:{$this->time[0]}({$this->weekDay}) {$this->time[1]}")
 					->line("	地点:{$this->act->address}")
