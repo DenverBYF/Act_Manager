@@ -24,7 +24,7 @@
                 <tbody>
                     @foreach($act as $eachAct)
                         <tr>
-                            <th>{{ $eachAct->name }}</th>
+                            <th><a href="{{ route('act.show',['id' => $eachAct->id]) }}">{{ $eachAct->name }}</a></th>
                             <th>{{ $eachAct->time }}</th>
                             <th>{{ $eachAct->address }}</th>
                             <th>{{ $eachAct->users->count() }}&nbsp; / &nbsp;{{ $eachAct->joinUser->count() }}</th>

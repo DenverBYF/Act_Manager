@@ -30,14 +30,16 @@ Route::prefix('admin')->group(function (){
 			return response($users,200);
 		})->name('search_user');
 	});
-	Route::resource('act','ActController')->middleware('permission:create_act');
-	Route::post('sign','ActController@sign')->middleware('permission:create_act')->name('sign');
+	Route::middleware('permission:create_act')->group(function (){
+		Route::resource('act','ActController');
+		Route::resource('work','WorkController');
+		Route::post('sign','ActController@sign')->name('sign');
+		Route::get('pdf/{id}','ActController@pdf')->name('pdf');
+	});
 });
 
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('test',function (){
-
-});
+Route::get('test','ActController@pdf');

@@ -7,6 +7,7 @@ use App\Jobs\sendActMail;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mpdf\Mpdf;
 use Spatie\Permission\Models\Role;
 
 class ActController extends Controller
@@ -78,6 +79,8 @@ class ActController extends Controller
     public function show($id)
     {
         //
+		$act = Act::findOrFail($id);
+		return view('admin.act.show',['act' => $act]);
     }
 
     /**
@@ -104,9 +107,10 @@ class ActController extends Controller
     {
         //
 		$act = Act::findOrFail($id);
-		$act->content = $request->input('content');
+		$act->markdown_content = $request->input('content');
+		$act->content = $request->input('html_content');
 		$act->save();
-		return view('admin.act.edit',['act' => $act]);
+		return view('admin.act.show',['act' => $act]);
     }
 
     /**
@@ -130,5 +134,52 @@ class ActController extends Controller
 			DB::table('act_user')->where('act_id',$actId)->where('user_id',$eachUser)->update(['join'=>1]);
 		}
 		return response("ok",200);
+	}
+
+	public function pdf(Request $request)
+	{
+		$act = Act::findOrFail($request->id);
+		$mpdf = new Mpdf(['mode' => 'zh-cn', 'tempDir' => storage_path('tmp')]);
+		$mpdf->useAdobeCJK = true;
+		$header = array (
+			'odd' => array (
+				'L' => array (
+					'content' => 'Cyber',
+					'font-size' => 10,
+					'font-style' => 'B',
+					'font-family' => 'serif',
+					'color'=>'#000000'
+				),
+				'R' => array (
+					'content' => explode('T',$act->time)[0],
+					'font-size' => 10,
+					'font-style' => 'B',
+					'font-family' => 'serif',
+					'color'=>'#000000'
+				),
+				'line' => 1,
+			),
+			'even' => array ()
+		);
+		$mpdf->SetHeader($header);
+		$user = $act->users->count();
+		$joinUser = $act->joinUser->count();
+		$time = str_replace('T',' ',$act->time);
+		$title = <<<data
+<h1> $act->name </h1>
+ 				<HR>
+                <p>
+                    <span>
+                        时间:&nbsp; $time &nbsp;&nbsp;
+                        地点:&nbsp; $act->address &nbsp;&nbsp;
+                        参会情况&nbsp; $user&nbsp;/&nbsp;$joinUser
+                    </span>
+                </p>
+                <HR>
+data;
+
+		$mpdf->WriteHTML($title);
+		$mpdf->WriteHTML($act->content);
+		$mpdf->Output();
 	}
 }

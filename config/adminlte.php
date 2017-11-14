@@ -119,7 +119,7 @@ return [
             'url'  => 'admin/groups',
             'icon' => 'group',
         ],
-		'支部活动',
+		'活动管理',
 		[
 			'text' => '活动发布',
 			'url' => 'admin/act/create',
@@ -129,6 +129,11 @@ return [
 			'text' => '活动管理',
 			'url' => 'admin/act',
 			'icon' => 'calendar'
+		],
+		[
+			'text' => '工作日程',
+			'url' => 'admin/work',
+			'icon' => 'tags'
 		]
        /* [
             'text'    => 'Multilevel',
