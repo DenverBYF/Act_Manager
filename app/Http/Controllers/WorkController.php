@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\work;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class WorkController extends Controller
 {
@@ -14,6 +16,8 @@ class WorkController extends Controller
     public function index()
     {
         //
+		$works = work::where('status','0');
+		return view('admin.work.index',['work' => $works]);
     }
 
     /**
@@ -24,6 +28,8 @@ class WorkController extends Controller
     public function create()
     {
         //
+		$role = Role::all();
+		return view('admin.work.create',['group' => $role]);
     }
 
     /**

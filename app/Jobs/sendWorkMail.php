@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\work;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -27,8 +28,9 @@ class sendWorkMail implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(work $work)
     {
         //
+
     }
 }
