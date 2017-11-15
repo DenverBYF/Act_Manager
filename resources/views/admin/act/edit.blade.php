@@ -21,7 +21,7 @@
                     <textarea class="editormd-html-textarea" name="html_content"></textarea>
                 </div>
                 <div class="form-group col-md-3 col-sm-3">
-                    <button class="btn-primary form-control" type="submit" {{--onclick="get_html_ajax()"--}}>保存</button>
+                    <button class="btn-primary form-control" type="submit" >保存</button>
                 </div>
             </form>
         </div>
@@ -44,23 +44,5 @@
                 saveHTMLToTextarea: true,
             });
         });
-        function get_html_ajax(id){
-            var html_content = editor.getPreviewedHTML();
-            $("#html_content").val(html_content);
-            $.ajax({
-                url:"{{ route('act.index') }}"+"/"+id,
-                data:$("act_form").serialize(),
-                type:"POST",
-                dataType:"text",
-                success:function (data) {
-                    bootbox.alert("<a href=\" {{ route('act.index') }}\">保存成功</a>",function(){
-                        window.location.reload();
-                    });
-                },
-                error:function(e){
-                    bootbox.alert("发布失败");
-                }
-            });
-        }
     </script>
 @endsection

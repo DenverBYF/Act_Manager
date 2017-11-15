@@ -26,7 +26,7 @@
                                 <input class="form-control" type="file" name="file" id="file">
                             </div>
                             <div class="form-group">
-                                <button class="form-control btn-primary" type="button" onclick="add_user()">导入</button>
+                                <button class="form-control btn-primary" type="submit" {{--type="button" onclick="add_user()"--}}>导入</button>
                             </div>
                         </form>
                     </div>

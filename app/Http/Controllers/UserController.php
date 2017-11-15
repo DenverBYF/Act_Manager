@@ -28,6 +28,7 @@ class UserController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -42,6 +43,7 @@ class UserController extends Controller
 		if($request->hasFile('file') and $request->file('file')->isValid()){
 			$file = $request->file;
 			$extensionName = $file->getMimeType();
+			//var_dump($extensionName);
 			$extensionArray = ['application/vnd.ms-excel','application/vnd.ms-office','application/x-xls','application/octet-stream'];
 			//判断文件类型
 			if(in_array($extensionName,$extensionArray)){
@@ -51,14 +53,17 @@ class UserController extends Controller
 					$filPath = storage_path('app/'.$file);
 					Excel::load($filPath,function ($reader){	//处理文件,添加成员数据
 						$reader->each(function($sheet) {
+							//dd($sheet);
 							$sheet->each(function($row) {
-								$user = \App\User::create([
+								echo "aaaa";
+								/*$user = \App\User::create([
 									'name'=>$row->name, 'sex'=>$row->sex, 'email'=>$row->email, 'tel'=>$row->tel,
 									'password'=>bcrypt($row->stuid), 'stuId'=>$row->stuid
 								]);
 								if(!$user){
 									die("创建{$row->name}失败");
-								}
+								}*/
+								dd($row->name);
 							});
 						});
 					},'UTF-8');

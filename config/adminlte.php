@@ -139,8 +139,14 @@ return [
 		[
 			'text' => '工作日程',
 			'url' => 'admin/work',
-			'icon' => 'tags'
-		]
+			'icon' => 'tags',
+		],
+		'个人设置',
+		[
+			'text' => '修改密码',
+			'url' => 'setting',
+			'icon' => 'wrench',
+		],
        /* [
             'text'    => 'Multilevel',
             'icon'    => 'share',

@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::prefix('admin')->group(function (){
 	Route::middleware(['permission:create_user'])->group(function (){
 		Route::resource('users','UserController');
@@ -42,4 +43,17 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('test','ActController@pdf');
+Route::get('setting',function (){
+	$user = \Illuminate\Support\Facades\Auth::user();
+	return view('admin.user.edit',['user' => $user]);
+});
+Route::post('reset','ResetPasswordController@index')->middleware('auth')->name('reset');
+
+Route::get('test',function (){
+	\Maatwebsite\Excel\Facades\Excel::create('zh',function ($excel){
+		$excel->sheet('sheet1',function ($sheet){
+			$sheet->appendRow(array('Name','Sex','Email'));
+		});
+		$excel->sheet('sheet2');
+	},'UTF-8')->download('xls');
+});
