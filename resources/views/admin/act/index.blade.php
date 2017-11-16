@@ -23,7 +23,7 @@
                 </thead>
                 <tbody>
                     @foreach($act as $eachAct)
-                        <tr>
+                        <tr id="a{{ $eachAct->id }}">
                             <th><a href="{{ route('act.show',['id' => $eachAct->id]) }}">{{ $eachAct->name }}</a></th>
                             <th>{{ $eachAct->time }}</th>
                             <th>{{ $eachAct->address }}</th>
@@ -76,16 +76,6 @@
                 </tbody>
                 {{ $act->links() }}
             </table>
-            <div class="modal fade" id="delete_success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">删除成功</div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload()">关闭</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -108,7 +98,7 @@
             var option = {
                 url:"{{ route('act.index') }}"+"/"+id,
                 success:function (data) {
-                    $("#delete_success").modal('show');
+                    $('#a'+id).remove();
                 },
                 error:function (e) {
                     alert("删除失败");

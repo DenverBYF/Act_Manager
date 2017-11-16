@@ -52,19 +52,20 @@ class WorkMail extends Notification
     	$timeRange = "{$this->startTime[0]}({$this->startWeekDay}){$this->startTime[1]} 至 {$this->endTime[0]}({$this->endWeekDay}){$this->endTime[1]}";
     	if(!empty($this->work->file_url)){
     		$file = storage_path('/app/work/'.$this->work->file_url);
+			$fileName = $this->work->name.".".explode('.',$file)[1];
 			return (new MailMessage)
 						->subject('工作邮件')
-						->line('党支部成员你好:')
+						->line(env('group_name').'成员:')
 						->line('   现有一项工作('.$this->work->name.')安排给你,具体说明如下:')
 						->line('       工作负责人:'.$this->work->manager->name."  (邮箱{$this->work->manager->email})")
 						->line('       工作内容:'.$this->work->content)
 						->line('       时间范围:'.$timeRange)
 						->line('   请按照要求在规定时间内完成相关工作并向工作负责人汇报,谢谢。')
-						->attach($file);
+						->attach($file,['as' => $fileName]);
 		}else{
 			return (new MailMessage)
 				->subject('工作邮件')
-				->line('党支部成员你好:')
+				->line(env('group_name').'成员:')
 				->line('   现有一项工作('.$this->work->name.')安排给你,具体说明如下:')
 				->line('       工作负责人:'.$this->work->manager->name."  (邮箱{$this->work->manager->email})")
 				->line('       工作内容:'.$this->work->content)

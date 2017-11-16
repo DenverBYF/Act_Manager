@@ -45,6 +45,11 @@ class User extends Authenticatable
 
 	public function worksNotFinish()
 	{
-		return $this->belongsToMany('App\work','work_user')->withPivot('status',0);
+		return $this->belongsToMany('App\work','work_user')->wherePivot('status',0);
+	}
+
+	public function worksFinish()
+	{
+		return $this->belongsToMany('App\work','work_user')->wherePivot('status',1);
 	}
 }

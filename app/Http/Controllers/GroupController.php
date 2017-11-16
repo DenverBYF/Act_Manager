@@ -106,6 +106,9 @@ class GroupController extends Controller
 					Excel::load($filPath,function ($reader) use ($id){	//处理文件,添加成员数据
 						$reader->each(function($sheet) use ($id) {
 							$sheet->each(function($row) use ($id) {
+								if(empty($row->name) and empty($row->stuid)){
+									return;
+								}
 								$user = User::where('stuId','=',$row->stuid)->first();	//判断该成员是否存在
 								if(empty($user)){			//若不存在,新建一个成员
 									$user = \App\User::create([

@@ -54,6 +54,9 @@ class UserController extends Controller
 					Excel::load($filPath,function ($reader){	//处理文件,添加成员数据
 						$reader->each(function($sheet) {
 							$sheet->each(function($row) {
+								if(empty($row->name) and empty($row->stuid)){
+									return;
+								}
 								$user = \App\User::create([
 									'name'=>$row->name, 'sex'=>$row->sex, 'email'=>$row->email, 'tel'=>$row->tel,
 									'password'=>bcrypt($row->stuid), 'stuId'=>$row->stuid

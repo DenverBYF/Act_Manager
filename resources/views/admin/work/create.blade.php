@@ -48,12 +48,12 @@
                     <label for="type">工作类型</label>
                     <div class="radio form-control" id="type">
                         <label>
-                            <input type="radio" name="hidden" id="hidden" value="1">公开
+                            <input type="radio" name="hidden" id="hidden" value="0">公开
                         </label>
                     </div>
                     <div class="radio form-control" id="type">
                         <label>
-                            <input type="radio" name="hidden" id="hidden" value="0" checked>私有
+                            <input type="radio" name="hidden" id="hidden" value="1" checked>私有
                         </label>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
         $("#uploadfile").fileinput({
             language: 'zh', //设置语言
             uploadUrl: '', //上传的地址
-            allowedFileExtensions: ['jpg', 'jpeg', 'png', 'doc', 'docx', 'xls', 'pdf', 'xlsx', 'zip', 'rar'],//接收的文件后缀
+            allowedFileExtensions: ['jpg', 'jpeg', 'png', 'doc', 'docx', 'xls', 'pdf', 'xlsx', 'zip', 'rar', 'pptx', 'ppt'],//接收的文件后缀
             //uploadExtraData:{"id": 1, "fileName":'123.mp3'},
             uploadAsync: false, //默认异步上传
             showUpload: false, //是否显示上传按钮
@@ -105,7 +105,7 @@
                     });
                 },
                 error:function (e) {
-                    bootbox.alert("发布失败");
+                    bootbox.alert("发布失败"+e.responseText);
                     console.log(e);
                 }
             };

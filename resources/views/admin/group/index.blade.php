@@ -52,7 +52,7 @@
                 </thead>
                 <tbody>
                     @foreach($groups as $eachGroup)
-                        <tr>
+                        <tr id="g{{ $eachGroup->id }}">
                             <th>{{ $loop->index + 1 }}</th>
                             <th>{{ $eachGroup->name }}</th>
                             <th>{{ \App\User::role($eachGroup->name)->count() }}</th>
@@ -83,16 +83,6 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
         </div>
-        <div class="modal fade" id="delete_success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">删除成功</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload()">关闭</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
-        </div>
     </div>
 @endsection
 
@@ -116,7 +106,7 @@
             var option = {
                 url : "{{ route('groups.index') }}"+"/"+id,
                 success:function (data) {
-                    $("#delete_success").modal('show');
+                    $('#g'+id).remove();
                 },
                 error:function (e) {
                     alert("删除失败");

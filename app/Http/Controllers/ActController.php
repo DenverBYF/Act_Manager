@@ -123,8 +123,10 @@ class ActController extends Controller
     {
         //
 		if(Act::destroy($id) == 1){
+			DB::table('act_user')->where('act_id',$id)->delete();
 			return response($id,200);
 		}
+
     }
 
     public function sign(Request $request)

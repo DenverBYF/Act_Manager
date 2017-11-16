@@ -20,13 +20,10 @@ class WorkController extends Controller
     public function index()
     {
         //
-		/*$user = Auth::user();
-		$publicWorks = work::where('status','0')->where('hidden',1)->get();
-		$privateWorks = $user->worksNotFinish();
-		return view('admin.work.index',['publicWorks' => $publicWorks,'privateWorks' => $privateWorks]);*/
-		$work = work::find(16);
-		$user = User::find(1);
-		var_dump($user->workManager);
+		$user = Auth::user();
+		$publicWork = work::where('hidden', 0)->where('status', 0)->get();
+		$finishWork = work::where('hidden', 0)->where('status', 1)->get();
+		return view('admin.work.index',['publicWork' => $publicWork, 'user' => $user, 'finishWork' => $finishWork]);
     }
 
     /**
@@ -64,15 +61,17 @@ class WorkController extends Controller
 					'application/x-xls',
 					'application/octet-stream',
 					'application/msword',
+					'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+					'application/vnd.ms-powerpoint',
 					'image/png',
 					'image/jpeg',
 				];									//白名单
 				$extensionArray = [
-					'jpg','png','jpeg','pdf','doc','xls','xlsx','docx','zip','rar'
+					'jpg','png','jpeg','pdf','doc','bin','xls','xlsx','docx','zip','rar','ppt','pptx'
 				];
 				if(in_array($mimeType, $mimeTypeArray) and in_array($extensionName, $extensionArray)){
 					$fileName = base64_encode(time()).".".$extensionName;
-					$file->storeAs('work',$fileName);		//储存文件
+					$file->storeAs('work', $fileName);		//储存文件
 					$work = work::create([					//创建工作
 						'name' => $request->name,
 						'user_id' => $userId,
@@ -108,7 +107,7 @@ class WorkController extends Controller
 			if($work){
 				$this->addUser($request->groups, $work->id);	//添加工作人员
 				sendWorkMail::dispatch($work);
-				return response("ok",200);
+				return response("ok", 200);
 			}else{
 				return response("error", 500);
 			}
@@ -174,4 +173,14 @@ class WorkController extends Controller
     {
         //
     }
+
+	public function finish(Request $request)
+	{
+		$workId = $request->id;
+		$work = work::findOrFail($workId);
+		$work->status = 1;
+		$work->save();
+		DB::table('work_user')->where('work_id', $workId)->update(['status' => 1]);
+		return response("ok", 200);
+	}
 }

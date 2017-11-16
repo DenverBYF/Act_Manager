@@ -26,7 +26,7 @@
                                 <input class="form-control" type="file" name="file" id="file">
                             </div>
                             <div class="form-group">
-                                <button class="form-control btn-primary" type="submit" {{--type="button" onclick="add_user()"--}}>导入</button>
+                                <button class="form-control btn-primary" type="button" onclick="add_user()">导入</button>
                             </div>
                         </form>
                     </div>
@@ -37,16 +37,6 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">导入成功</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload()">关闭</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
-        </div>
-        <div class="modal fade" id="delete_success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">删除成功</div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload()">关闭</button>
                     </div>
@@ -67,7 +57,7 @@
                 </thead>
                 <tbody id="table_body">
                     @foreach($user as $eachUser)
-                        <tr>
+                        <tr id="u{{$eachUser->id}}">
                             <th><a href="#">{{ $eachUser->name }}</a></th>
                             <th>{{ $eachUser->sex }}</th>
                             <th>{{ $eachUser->stuId }}</th>
@@ -109,7 +99,7 @@
             var option = {
                 url:"{{ route('users.index') }}"+"/"+id,
                 success:function (data) {
-                    $("#delete_success").modal('show');
+                    $('#u'+id).remove();
                 },
                 error:function (e) {
                     alert("删除失败");

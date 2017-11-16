@@ -81,7 +81,7 @@
                     </thead>
                     <tbody>
                     @foreach($user as $eachUser)
-                        <tr>
+                        <tr id="u{{ $eachUser->id }}">
                             <th><a href="#">{{ $eachUser->name }}</a></th>
                             <th>{{ $eachUser->sex }}</th>
                             <th>{{ $eachUser->stuId }}</th>
@@ -100,16 +100,6 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-body">导入成功</div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload()">关闭</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal -->
-            </div>
-            <div class="modal fade" id="delete_success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">删除成功</div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload()">关闭</button>
                         </div>
@@ -144,7 +134,7 @@
                 url:"{{ route('deleteUserFromGroup') }}"+"?id="+id+"&name="+"{{ $group->name }}",
                 type:"GET",
                 success:function (data) {
-                    $("#delete_success").modal('show');
+                    $('#u'+id).remove();
                 },
                 error:function (e) {
                     alert("导入失败");
