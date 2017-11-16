@@ -8,7 +8,7 @@
 @section('content')
     <div class="container">
         <div class="col-md-10 col-sm-10">
-            <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+            <form id="work_form" class="form-horizontal" role="form" method="post" action="{{ route('work.store') }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group col-md-4 col-sm-4">
                     <label for="name">工作名称</label>
@@ -39,12 +39,26 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="form-group col-md-12 col-sm-12">
+                <div class="form-group col-md-9 col-sm-9">
                     <label for="uploadfile">工作附件(支持图片,pdf,xls,xlsx,doc,多文件打包(zip,rar)后上传)</label>
                     <input type="file" name="uploadfile" id="uploadfile" multiple class="file-loading form-control" />
                 </div>
+                <div class="col-md-1 col-sm-1"></div>
                 <div class="form-group col-md-2 col-sm-2">
-                    <button class="btn btn-primary form-control" type="submit">创建 </button>
+                    <label for="type">工作类型</label>
+                    <div class="radio form-control" id="type">
+                        <label>
+                            <input type="radio" name="hidden" id="hidden" value="1">公开
+                        </label>
+                    </div>
+                    <div class="radio form-control" id="type">
+                        <label>
+                            <input type="radio" name="hidden" id="hidden" value="0" checked>私有
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group col-md-2 col-sm-2">
+                    <button class="btn btn-primary form-control" type="button" onclick="send_data()">创建</button>
                 </div>
             </form>
         </div>
@@ -53,7 +67,10 @@
 
 @section('js')
     <script type="text/javascript" src="{{ asset('js/fileinput.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/bootbox.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/zh.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.form.min.js') }}"></script>
     <script type="text/javascript">
         $("#uploadfile").fileinput({
             language: 'zh', //设置语言
@@ -79,5 +96,20 @@
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
             //msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
         });
+
+        function send_data() {
+            var option = {
+                success:function (data) {
+                    bootbox.alert("发布成功",function () {
+                        window.location.reload();
+                    });
+                },
+                error:function (e) {
+                    bootbox.alert("发布失败");
+                    console.log(e);
+                }
+            };
+            $("#work_form").ajaxSubmit(option)
+        }
     </script>
 @endsection

@@ -32,4 +32,19 @@ class User extends Authenticatable
 	{
 		return $this->belongsToMany('App\Act','act_user');
 	}
+
+	public function works()
+	{
+		return $this->belongsToMany('App\work','work_user');
+	}
+
+	public function workManager()
+	{
+		return $this->hasMany('App\work','user_id');
+	}
+
+	public function worksNotFinish()
+	{
+		return $this->belongsToMany('App\work','work_user')->withPivot('status',0);
+	}
 }

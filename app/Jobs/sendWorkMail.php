@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Notifications\WorkMail;
 use App\work;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -13,14 +14,16 @@ class sendWorkMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+	protected $work;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(work $work)
     {
         //
+		$this->work = $work;
     }
 
     /**
@@ -28,9 +31,11 @@ class sendWorkMail implements ShouldQueue
      *
      * @return void
      */
-    public function handle(work $work)
+    public function handle()
     {
         //
-
+		foreach ($this->work->users as $eachUser){
+			$eachUser->notify(new WorkMail($this->work));
+		}
     }
 }
