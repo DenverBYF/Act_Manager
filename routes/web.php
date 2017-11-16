@@ -50,11 +50,6 @@ Route::get('setting',function (){
 });
 Route::post('reset','ResetPasswordController@index')->middleware('auth')->name('reset');
 
-Route::get('test',function (){
-	\Maatwebsite\Excel\Facades\Excel::create('zh',function ($excel){
-		$excel->sheet('sheet1',function ($sheet){
-			$sheet->appendRow(array('Name','Sex','Email'));
-		});
-		$excel->sheet('sheet2');
-	},'UTF-8')->download('xls');
+Route::get('home',function (){
+	return redirect()->route('home');
 });
