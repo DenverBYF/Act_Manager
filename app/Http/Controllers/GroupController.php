@@ -154,11 +154,6 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
-		$name = Role::find($id)->name;
-		$users = User::Role($name)->get();
-		foreach ($users as $user){
-			$user->removeRole($name);
-		}
 		if(Role::destroy($id) == 1){
 			return response("ok",200);
 		}else{
