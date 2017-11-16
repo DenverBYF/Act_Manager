@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Whoops\Exception\ErrorException;
 
 class WorkController extends Controller
 {
@@ -82,7 +83,12 @@ class WorkController extends Controller
 						'end_time' => $request->end_time,
 					]);
 					if($work){
-						$this->addUser($request->groups, $work->id);
+						if (empty($request->groups)){
+							$data = ['work_id' => $work->id, 'user_id' => $userId];
+							DB::table('work_user')->insert($data);
+						}else{
+							$this->addUser($request->groups, $work->id);
+						}
 						sendWorkMail::dispatch($work);
 						return response("ok", 200);
 					}else{
@@ -105,7 +111,12 @@ class WorkController extends Controller
 				'end_time' => $request->end_time,
 			]);
 			if($work){
-				$this->addUser($request->groups, $work->id);	//添加工作人员
+				if (empty($request->groups)){
+					$data = ['work_id' => $work->id, 'user_id' => $userId];
+					DB::table('work_user')->insert($data);
+				}else{
+					$this->addUser($request->groups, $work->id);
+				}
 				sendWorkMail::dispatch($work);
 				return response("ok", 200);
 			}else{
@@ -117,14 +128,14 @@ class WorkController extends Controller
 
     public function addUser($groups,$workId)
 	{
-		foreach ($groups as $eachGroup){
+		foreach ($groups as $eachGroup) {
 			$roleName = Role::find($eachGroup);
-			$users = User::Role($roleName)->get();		//获取分组内人员
+			$users = User::Role($roleName)->get();        //获取分组内人员
 			$data = [];
-			foreach ($users as $user){
-				$data[] = ['work_id' => $workId, "user_id" => $user->id];		//生成对应数据
+			foreach ($users as $user) {
+				$data[] = ['work_id' => $workId, "user_id" => $user->id];        //生成对应数据
 			}
-			DB::table('work_user')->insert($data);		//填充
+			DB::table('work_user')->insert($data);        //填充
 		}
 	}
 
