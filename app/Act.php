@@ -23,4 +23,9 @@ class Act extends Model
 	{
 		return $this->belongsToMany('App\User','act_user')->wherePivot('join',0);
 	}
+
+	public function manager()
+	{
+		return $this->belongsTo('App\User');
+	}
 }

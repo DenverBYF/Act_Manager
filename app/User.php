@@ -52,4 +52,9 @@ class User extends Authenticatable
 	{
 		return $this->belongsToMany('App\work','work_user')->wherePivot('status',1);
 	}
+
+	public function managerActs()
+	{
+		return $this->hasMany('App\Acts','user_id');
+	}
 }
