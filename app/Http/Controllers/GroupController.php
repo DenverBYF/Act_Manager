@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -46,6 +48,7 @@ class GroupController extends Controller
 		$createUser = $request->create_user;
 		$createAct = $request->create_act;
 		$role = Role::create(['name' => $name]);
+		DB::table('role_manager')->insert(['user_id' => Auth::id(), 'role_id' => $role->id]);
 		if(!empty($createUser)){
 			$createUserPermission = Permission::findByName('create_user');
 			$role->givePermissionTo($createUserPermission);
@@ -80,7 +83,7 @@ class GroupController extends Controller
 		$group = Role::findByName($id);
 		$users = User::role($id)->paginate(15);
 		$members = User::all();
-		return view('admin.group.edit',['group' => $group, 'user' => $users, 'member' => $members]);
+		return view('admin.group.edit', ['group' => $group, 'user' => $users, 'member' => $members]);
     }
 
     /**
@@ -98,9 +101,9 @@ class GroupController extends Controller
 			$extensionName = $file->getMimeType();
 			$extensionArray = ['application/vnd.ms-excel','application/vnd.ms-office','application/x-xls','application/octet-stream'];
 			//判断文件类型
-			if(in_array($extensionName,$extensionArray)){
+			if(in_array($extensionName, $extensionArray)){
 				$name = base64_encode(time()).".xls";
-				$file = $file->storeAS('',$name);	//储存文件
+				$file = $file->storeAS('', $name);	//储存文件
 				if($file){
 					$filPath = storage_path('app/'.$file);
 					Excel::load($filPath,function ($reader) use ($id){	//处理文件,添加成员数据
@@ -126,10 +129,10 @@ class GroupController extends Controller
 						});
 					},'UTF-8');
 					unlink($filPath);		//删除文件
-					return response("ok",200);
+					return response("ok", 200);
 				}
 			}else{
-				return response("only xls",400);
+				return response("only xls", 400);
 			}
 		}else{
 			$role = Role::find($id);
@@ -141,7 +144,7 @@ class GroupController extends Controller
 
 				}
 			}
-			return response("ok",200);
+			return response("ok", 200);
 		}
     }
 
@@ -154,10 +157,17 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
-		if(Role::destroy($id) == 1){
-			return response("ok",200);
+		$role = Role::find($id);
+		$userId = DB::table('role_manager')->where('role_id',$id)->value('user_id');
+		if(Auth::id() == $userId ){
+			if(Role::destroy($id) == 1){
+				return response("ok", 200);
+			}else{
+				return response("error", 400);
+			}
 		}else{
-			return response("error",400);
+			return response("not manager", 403);
 		}
+
     }
 }

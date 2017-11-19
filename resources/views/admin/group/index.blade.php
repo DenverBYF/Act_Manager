@@ -62,11 +62,13 @@
                                 </a>
                             </th>
                             <th>
+                                @manager($eachGroup->id)
                                 <form id="delete_group_form" class="form-horizontal" role="form" method="post">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <button id="{{ $eachGroup->id }}" class="btn-danger" type="button" onclick="delete_group(this.id)">删除该分组</button>
                                 </form>
+                                @endmanager
                             </th>
                         </tr>
                     @endforeach

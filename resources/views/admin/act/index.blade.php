@@ -37,11 +37,13 @@
                                 <button class="btn-success" data-toggle="modal" data-target="#sign_user{{ $eachAct->id }}" type="button">会议签到</button>
                             </th>
                             <th>
+                                @if( \Illuminate\Support\Facades\Auth::id() == $eachAct->user_id )
                                 <form class="form-horizontal" role="form" id="delete_form" method="post" >
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <button type="button" class="btn-danger" id="{{ $eachAct->id }}" onclick="delete_act(this.id)">删除该活动</button>
                                 </form>
+                                @endif
                             </th>
                         </tr>
                         <div class="modal fade" id="sign_user{{ $eachAct->id }}" tabindex="-1" aria-hidden="true">

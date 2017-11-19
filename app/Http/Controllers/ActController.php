@@ -6,6 +6,7 @@ use App\Act;
 use App\Jobs\sendActMail;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Mpdf\Mpdf;
 use Spatie\Permission\Models\Role;
@@ -51,7 +52,8 @@ class ActController extends Controller
 			'time' => $request->time,
 			'bz' => $request->bz,
 			'address' => $request->address,
-			'content' => NULL
+			'content' => NULL,
+			'user_id' => Auth::id()		//储存创建者id
 		]);
 		if($act){
 			foreach ($request->groups as $eachGroup){		//循环分组
@@ -122,11 +124,15 @@ class ActController extends Controller
     public function destroy($id)
     {
         //
-		if(Act::destroy($id) == 1){
-			DB::table('act_user')->where('act_id',$id)->delete();
-			return response($id,200);
+		$act = Act::findOrFail($id);
+		if( Auth::id() == $act->user_id){
+			if(Act::destroy($id) == 1){
+				DB::table('act_user')->where('act_id',$id)->delete();
+				return response($id,200);
+			}
+		}else{
+			return response("not manager",403);
 		}
-
     }
 
     public function sign(Request $request)
