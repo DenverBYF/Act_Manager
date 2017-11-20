@@ -1,2 +1,4 @@
 [2017-11-16 23:17:07] Processing: App\Jobs\sendWorkMail
 [2017-11-16 23:17:10] Processed:  App\Jobs\sendWorkMail
+[2017-11-20 18:03:42] Processing: App\Jobs\sendActMail
+[2017-11-20 18:03:44] Processed:  App\Jobs\sendActMail

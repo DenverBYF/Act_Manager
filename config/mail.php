@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', '18991388969@163.com'),
-        'name' => env('group_name', 'Example'),
+        'name' => env('group_name', 'Act_Manager'),
     ],
 
     /*

@@ -30,31 +30,41 @@ class User extends Authenticatable
 
 	public function acts()
 	{
-		return $this->belongsToMany('App\Act','act_user');
+		return $this->belongsToMany('App\Act', 'act_user');
+	}
+
+	public function actsJoin()
+	{
+		return $this->belongsToMany('App\Act', 'act_user')->wherePivot('join', 1);
+	}
+
+	public function actsNotJoin()
+	{
+		return $this->belongsToMany('App\Act', 'act_user')->wherePivot('join', 0);
 	}
 
 	public function works()
 	{
-		return $this->belongsToMany('App\work','work_user');
+		return $this->belongsToMany('App\work', 'work_user');
 	}
 
 	public function workManager()
 	{
-		return $this->hasMany('App\work','user_id');
+		return $this->hasMany('App\work', 'user_id');
 	}
 
 	public function worksNotFinish()
 	{
-		return $this->belongsToMany('App\work','work_user')->wherePivot('status',0);
+		return $this->belongsToMany('App\work', 'work_user')->wherePivot('status', 0);
 	}
 
 	public function worksFinish()
 	{
-		return $this->belongsToMany('App\work','work_user')->wherePivot('status',1);
+		return $this->belongsToMany('App\work', 'work_user')->wherePivot('status', 1);
 	}
 
 	public function managerActs()
 	{
-		return $this->hasMany('App\Acts','user_id');
+		return $this->hasMany('App\Acts', 'user_id');
 	}
 }

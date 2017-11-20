@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Act;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
@@ -25,9 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-    	$user = User::all()->count();
+    	$user = Auth::user();
+    	$userName = $user->name;
+    	$userCount = User::all()->count();
 		$group = Role::all()->count();
 		$act = Act::all()->count();
-        return view('home',['user' => $user, 'group' => $group, 'act' => $act]);
+        return view('home',['user' => $user, 'userCount' => $userCount, 'group' => $group, 'act' => $act, 'userName' => $userName]);
     }
 }
