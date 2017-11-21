@@ -34,9 +34,9 @@ Route::prefix('admin')->group(function (){
 	Route::middleware('permission:create_act')->group(function (){
 		Route::resource('act', 'ActController');
 		Route::resource('work', 'WorkController');
-		Route::get('finish',' WorkController@finish')->name('finish');
-		Route::post('sign',' ActController@sign')->name('sign');
-		Route::get('pdf/{id}','ActController@pdf')->name('pdf');
+		Route::get('finish', 'WorkController@finish')->name('finish');
+		Route::post('sign', 'ActController@sign')->name('sign');
+		Route::get('pdf/{id}', 'ActController@pdf')->name('pdf');
 	});
 });
 
