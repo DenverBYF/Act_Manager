@@ -192,9 +192,12 @@ class WorkController extends Controller
 	{
 		$workId = $request->id;
 		$work = work::findOrFail($workId);
+		if($work->user_id != Auth::id()){			//检查是否为发布者
+			return response("not manager", 403);
+		}
 		$work->status = 1;
-		$work->save();
-		DB::table('work_user')->where('work_id', $workId)->update(['status' => 1]);
+		$work->save();			//设为完成
+		DB::table('work_user')->where('work_id', $workId)->update(['status' => 1]);		//修改工作-用户表
 		return response("ok", 200);
 	}
 }

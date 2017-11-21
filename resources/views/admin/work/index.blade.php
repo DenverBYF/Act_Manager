@@ -64,12 +64,14 @@
                                                 {{ str_replace('T',' ',$eachWork->start_time) }} ~
                                                 {{ str_replace('T',' ',$eachWork->end_time) }}
                                             </p>
+                                            @if($eachWork->user_id == \Illuminate\Support\Facades\Auth::id())
                                             <label for="success">
                                                 <button class="btn btn-success btn-sm" id="{{ $eachWork->id }}"
                                                         onclick="finish(this.id)">
                                                     完成
                                                 </button>
                                             </label>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -148,12 +150,14 @@
                                                 {{ str_replace('T',' ',$eachWork->start_time) }} ~
                                                 {{ str_replace('T',' ',$eachWork->end_time) }}
                                             </p>
+                                            @if($eachWork->user_id == \Illuminate\Support\Facades\Auth::id())
                                             <label for="success">
                                                 <button class="btn btn-success btn-sm" id="{{ $eachWork->id }}"
                                                         onclick="finish(this.id)">
                                                     完成
                                                 </button>
                                             </label>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

@@ -2,6 +2,10 @@
 
 @section('title', '添加工作')
 
+@section('content_header')
+    <h3>发布工作</h3>
+@endsection
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/fileinput.min.css') }}">
 
