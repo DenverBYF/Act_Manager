@@ -53,23 +53,3 @@ Route::post('reset', 'ResetPasswordController@index')->middleware('auth')->name(
 Route::get('home', function (){
 	return redirect()->route('home');
 });
-
-Route::get('test', function (){
-	$works = \App\work::where('status', 0)->where('tip', 1)->get();
-	$data = array();
-	foreach ($works as $work) {
-		$startTime = strtotime(explode('T', $work->start_time)[0]);
-		if($startTime <= strtotime("next Monday")){
-			$time = str_replace('T', ' ', $work->end_time);
-			foreach ($work->users as $user){
-				$data[$user->id][] = [
-					'name' => $work->name,
-					'endTime' => $time,
-					'manager' => $work->manager->name
-				];
-			}
-		}
-	}
-	var_dump($data);
-
-});
