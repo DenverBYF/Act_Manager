@@ -10,25 +10,23 @@
         <div class="col-md-10 col-sm-10">
             <form id="work_form" class="form-horizontal" role="form" method="post" action="{{ route('work.store') }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                <div class="form-group col-md-4 col-sm-4">
+                <div class="col-md-4 col-sm-4">
                     <label for="name">工作名称</label>
                     <input type="text" class="form-control" name="name" id="name">
                 </div>
-                <div class="col-md-1 col-sm-1"></div>
-                <div class="form-group col-md-3 col-sm-3">
+                <div class="col-md-4 col-sm-4">
                     <label for="start_time">开始时间</label>
                     <input id="start_time" name="start_time" class="form-control" type="datetime-local">
                 </div>
-                <div class="col-md-1 col-sm-1"></div>
-                <div class="form-group col-md-3 col-sm-3">
+                <div class="col-md-4 col-sm-4">
                     <label for="end_time">截止时间</label>
                     <input id="end_time" name="end_time" class="form-control" type="datetime-local">
                 </div>
-                <div class="form-group col-md-6 col-sm-6">
+                <div class="col-md-8 col-sm-8">
                     <label for="desc">工作描述</label>
                     <textarea class="form-control" name="desc" id="desc" rows="10"></textarea>
                 </div>
-                <div class="form-group col-md-6 col-sm-6">
+                <div class="col-md-4 col-sm-4">
                     <label for="group">人员分配</label>
                     @foreach($group as $each_group)
                         <div class="checkbox col-md-2 col-sm-2 form-control">
@@ -39,12 +37,11 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="form-group col-md-9 col-sm-9">
+                <div class="col-md-6 col-sm-6">
                     <label for="uploadfile">工作附件(支持图片,pdf,xls,xlsx,doc,多文件打包(zip,rar)后上传)</label>
                     <input type="file" name="uploadfile" id="uploadfile" multiple class="file-loading form-control" />
                 </div>
-                <div class="col-md-1 col-sm-1"></div>
-                <div class="form-group col-md-2 col-sm-2">
+                <div class="col-md-2 col-sm-2">
                     <label for="type">工作类型</label>
                     <div class="radio form-control" id="type">
                         <label>
@@ -57,8 +54,26 @@
                         </label>
                     </div>
                 </div>
+                <div class="col-md-4 col-sm-4">
+                    <label for="tip">邮件提醒</label>
+                    <div class="radio form-control" id="tip">
+                        <label>
+                            <input type="radio" name="tip" id="tip" value="0" checked>不提醒
+                        </label>
+                    </div>
+                    <div class="radio form-control" id="tip">
+                        <label>
+                            <input type="radio" name="tip" id="tip" value="1">每日提醒(每日九点邮件提醒)
+                        </label>
+                    </div>
+                    <div class="radio form-control" id="tip">
+                        <label>
+                            <input type="radio" name="tip" id="tip" value="2">每周提醒(每周一九点邮件提醒)
+                        </label>
+                    </div>
+                </div>
                 <div class="form-group col-md-2 col-sm-2">
-                    <button class="btn btn-primary form-control" type="button" onclick="send_data()">创建</button>
+                    <button class="btn btn-primary form-control" {{--type="submit"--}} type="button" onclick="send_data()">创建</button>
                 </div>
             </form>
         </div>

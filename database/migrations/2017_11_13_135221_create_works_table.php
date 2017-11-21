@@ -21,6 +21,7 @@ class CreateWorksTable extends Migration
 			$table->integer('status')->default(0);
 			$table->string('file_url')->nullable();
 			$table->integer('hidden');
+			$table->integer('tip');
 			$table->string('start_time');
 			$table->string('end_time');
             $table->timestamps();

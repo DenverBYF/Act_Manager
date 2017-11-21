@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\dayTip;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -26,6 +27,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+		$schedule->command(dayTip::class, [1])->dailyAt('9:00')->timezone('PRC');
+		$schedule->command(dayTip::class, [2])->weekly()->mondays()->at('9:00')->timezone('PRC');
     }
 
     /**

@@ -79,6 +79,7 @@ class WorkController extends Controller
 						'content' => $request->desc,
 						'file_url' => $fileName,
 						'hidden' => $request->hidden,
+						'tip' => $request->tip,
 						'start_time' => $request->start_time,
 						'end_time' => $request->end_time,
 					]);
@@ -107,6 +108,7 @@ class WorkController extends Controller
 				'user_id' => $userId,
 				'content' => $request->desc,
 				'hidden' => $request->hidden,
+				'tip' => $request->tip,
 				'start_time' => $request->start_time,
 				'end_time' => $request->end_time,
 			]);
@@ -123,6 +125,7 @@ class WorkController extends Controller
 				return response("error", 500);
 			}
 		}
+		//var_dump($request->tip);
     }
 
 

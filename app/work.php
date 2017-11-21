@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class work extends Model
 {
     //
-	protected $fillable = ['name','content', 'user_id', 'ddl', 'status', 'file_url', 'hidden', 'start_time','end_time'];
+	protected $fillable = [
+		'name','content', 'user_id', 'ddl', 'status', 'file_url', 'hidden', 'start_time', 'end_time', 'tip'
+	];
 
 	public function manager()
 	{
