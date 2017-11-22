@@ -48,6 +48,7 @@ Route::get('setting', function (){
 	$user = \Illuminate\Support\Facades\Auth::user();
 	return view('admin.user.edit', ['user' => $user]);
 })->name('setting');
+
 Route::post('reset', 'ResetPasswordController@index')->middleware('auth')->name('reset');
 
 Route::get('home', function (){

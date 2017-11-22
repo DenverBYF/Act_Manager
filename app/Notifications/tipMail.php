@@ -43,6 +43,7 @@ class tipMail extends Notification
     public function toMail($notifiable)
     {
     	$message = new MailMessage();
+		$message->subject('工作提醒');
 		$message->line(env('group_name','Group')."成员:");
 		$message->line("  你好,今天是".date("Y.m.d").",你在今天仍需要进行的工作如下:");
 		for ($i = 0; $i < count($this->workData); $i++){

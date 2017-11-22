@@ -83,7 +83,7 @@ class WorkController extends Controller
 						'end_time' => $request->end_time,
 					]);
 					if($work){
-						if (empty($request->groups)){
+						if (empty($request->groups)){					//没有选择人员分组
 							$data = ['work_id' => $work->id, 'user_id' => $userId];
 							DB::table('work_user')->insert($data);
 						}else{

@@ -49,6 +49,7 @@ class ActMail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+					->subject('活动/会议通知')
                     ->line(env('group_name').'成员:')
 					->line('  你好,这里是'.env('group_name').',现有如下一项活动/会议安排需要你的参加出席。')
                     ->line("	主题:{$this->act->name}")
