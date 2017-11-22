@@ -37,9 +37,9 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-6">
-                <label for="join">出席活动/会议</label>
+                <label for="join"><h4 class="text-success">出席活动/会议</h4></label>
                 <div id="join">
-                    <table class="table table-bordered">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>名称</th>
@@ -58,9 +58,9 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-6">
-                <label for="join">缺席活动/会议</label>
+                <label for="join"><h4 class="text-danger">缺席活动/会议</h4></label>
                 <div id="join">
-                    <table class="table table-bordered">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <th>名称</th>
