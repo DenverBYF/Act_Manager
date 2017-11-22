@@ -158,9 +158,10 @@ class GroupController extends Controller
     {
         //
 		$role = Role::find($id);
-		$userId = DB::table('role_manager')->where('role_id',$id)->value('user_id');
-		if(Auth::id() == $userId ){
+		$userId = DB::table('role_manager')->where('role_id',$id)->value('user_id');	//创建者id
+		if(Auth::id() == $userId ){														//判断权限
 			if(Role::destroy($id) == 1){
+				DB::table('role_manager')->where('role_id',$id)->delete();		//删除关联数据
 				return response("ok", 200);
 			}else{
 				return response("error", 400);

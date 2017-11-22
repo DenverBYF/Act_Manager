@@ -93,7 +93,24 @@
 
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+                    @if( \Illuminate\Support\Facades\Auth::user()->can('create_user') && \Illuminate\Support\Facades\Auth::user()->can('create_act'))
+                        @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+                    @elseif(\Illuminate\Support\Facades\Auth::user()->can('create_user'))
+                        <li class="header">人员管理</li>
+                        <li><a href="{{ route('users.index') }}"><i class="fa fa-fw fa-user"></i><span>人员信息</span></a></li>
+                        <li><a href="{{ route('groups.index') }}"><i class="fa fa-fw fa-group"></i><span>人员分组</span></a></li>
+                        <li class="header">个人设置</li>
+                        <li><a href="{{ route('setting') }}"><i class="fa fa-fw fa-wrench"></i><span>修改密码</span></a></li>
+                    @elseif(\Illuminate\Support\Facades\Auth::user()->can('create_act'))
+                        <li class="header">活动会议</li>
+                        <li><a href="{{ route('act.create') }}"><i class="fa fa-fw fa-file"></i><span>活动发布</span></a></li>
+                        <li><a href="{{ route('act.index') }}"><i class="fa fa-fw fa-calendar"></i><span>活动管理</span></a></li>
+                        <li class="header">工作安排</li>
+                        <li><a href="{{ route('work.create') }}"><i class="fa fa-fw fa-plus"></i><span>添加工作</span></a></li>
+                        <li><a href="{{ route('work.index') }}"><i class="fa fa-fw fa-tags"></i><span>工作日程</span></a></li>
+                        <li class="header">个人设置</li>
+                        <li><a href="{{ route('setting') }}"><i class="fa fa-fw fa-wrench"></i><span>修改密码</span></a></li>
+                    @endif
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

@@ -28,7 +28,7 @@
                                     <label><input type="checkbox" name="create_user" value="create_user">人员管理</label>
                                 </div>
                                 <div class="checkbox form-control">
-                                    <label><input type="checkbox" name="create_act" value="create_act">活动发布</label>
+                                    <label><input type="checkbox" name="create_act" value="create_act">活动(工作)发布</label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -56,20 +56,20 @@
                             <th>{{ $loop->index + 1 }}</th>
                             <th>{{ $eachGroup->name }}</th>
                             <th>{{ \App\User::role($eachGroup->name)->count() }}</th>
+                            @manager($eachGroup->id)
                             <th>
                                 <a href="{{ route('groups.edit',['id'=>$eachGroup->name]) }}">
                                     <button class="btn-info">编辑该分组</button>
                                 </a>
                             </th>
                             <th>
-                                @manager($eachGroup->id)
                                 <form id="delete_group_form" class="form-horizontal" role="form" method="post">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <button id="{{ $eachGroup->id }}" class="btn-danger" type="button" onclick="delete_group(this.id)">删除该分组</button>
                                 </form>
-                                @endmanager
                             </th>
+                            @endmanager
                         </tr>
                     @endforeach
                 </tbody>
