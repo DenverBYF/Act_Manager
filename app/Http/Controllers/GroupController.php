@@ -80,10 +80,10 @@ class GroupController extends Controller
     public function edit($id)
     {
         //
-		$managerId = DB::table('role_manager')->where('role_id',$id)->value('user_id');
+		$managerId = DB::table('role_manager')->where('role_id', $id)->value('user_id');
 		$userId = Auth::id();
 		if( $userId != $managerId){
-			return response("not manager",403);
+			return response("not manager", 403);
 		}
 		$group = Role::findByName($id);
 		$users = User::role($id)->paginate(12);
