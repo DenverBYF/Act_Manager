@@ -80,8 +80,13 @@ class GroupController extends Controller
     public function edit($id)
     {
         //
+		$managerId = DB::table('role_manager')->where('role_id',$id)->value('user_id');
+		$userId = Auth::id();
+		if( $userId != $managerId){
+			return response("not manager",403);
+		}
 		$group = Role::findByName($id);
-		$users = User::role($id)->paginate(15);
+		$users = User::role($id)->paginate(12);
 		$members = User::all();
 		return view('admin.group.edit', ['group' => $group, 'user' => $users, 'member' => $members]);
     }
@@ -157,7 +162,6 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
-		$role = Role::find($id);
 		$userId = DB::table('role_manager')->where('role_id',$id)->value('user_id');	//创建者id
 		if(Auth::id() == $userId ){														//判断权限
 			if(Role::destroy($id) == 1){
