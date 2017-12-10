@@ -58,7 +58,7 @@
                             <th>{{ \App\User::role($eachGroup->name)->count() }}</th>
                             @manager($eachGroup->id)
                             <th>
-                                <a href="{{ route('groups.edit',['id'=>$eachGroup->id]) }}">
+                                <a href="{{ route('groups.edit',['id'=>$eachGroup->name]) }}">
                                     <button class="btn-info">编辑该分组</button>
                                 </a>
                             </th>
